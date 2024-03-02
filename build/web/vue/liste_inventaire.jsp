@@ -18,12 +18,15 @@
         <%@ include file="head.jsp" %>
         <% 
         InventaireDao indao = new InventaireDao();
-        List<Inventaire> tb = indao.liste();
-        request.setAttribute("list", tb);
+        List<Inventaire> tbi = indao.liste();
+        request.setAttribute("list", tbi);
         %>
         <fieldset>
             <legend>Liste Des Inventaires</legend>
-            <table border="1" width="100%">
+            <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -56,6 +59,9 @@
                 </tbody>
             
             </table>  
+                        </div>
+                    </div>
+            </div>
         </fieldset> 
         <button><a href="${pageContext.request.contextPath}/vue/inventaire.jsp">Ajouter</a></button>
         <%@ include file="foot.jsp" %>

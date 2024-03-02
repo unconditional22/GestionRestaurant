@@ -3,6 +3,8 @@
     Created on : Mar 10, 2023, 5:17:25 PM
     Author     : kabor
 --%>
+<%@page import="model.Menu"%>
+<%@page import="dao.MenuDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="model.Commande"%>
@@ -18,12 +20,29 @@
         <%@ include file="head.jsp" %>
         <% 
         CommandeDao cmddao = new CommandeDao();
-        List<Commande> tb = cmddao.liste();
-        request.setAttribute("list", tb);
+        List<Commande> tbc = cmddao.liste();
+        request.setAttribute("list", tbc);
         %>
+        
+        <% 
+        MenuDao mendao = new MenuDao();
+        List<Menu> menu = mendao.liste();
+        request.setAttribute("listMenu", menu);
+        %>
+        
+        <% 
+        ClientDao c = new ClientDao();
+        List<Client> clt = c.liste();
+        request.setAttribute("listClient", clt);
+        %>
+       
+         
         <fieldset>
             <legend>Liste Des Commandes</legend>
-            <table border="1" width="100%">
+            <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -44,8 +63,11 @@
                             <td>${com.dateCommande}</td>
                             <td>${com.quantiteCommande}</td>
                             <td>${com.totalCommande}</td>
-                            <td>${com.idClient}</td>
-                            <td>${com.idMenu}</td>
+                            
+                            <td><c:forEach items="${listClient}" var="mn"> <c:if test= "${com.idClient eq mn.idClient}"> ${mn.nomClient} </c:if> </c:forEach></td>
+
+                            <td><c:forEach items="${listMenu}" var="mn"> <c:if test= "${com.idMenu eq mn.idMenu}"> ${mn.nomMenu} </c:if> </c:forEach></td>
+
                             <td>
                                 <a href="${pageContext.request.contextPath}/CommandeServlet?ids=${com.idCommande}">Supprimer</a>
                                 <a href="${pageContext.request.contextPath}/CommandeServlet?idm=${com.idCommande}">Modifier</a>
@@ -54,8 +76,12 @@
                     </c:forEach>
                 </tbody>
             
-            </table>  
+            </table> 
+                        </div>
+                    </div>
+            </div>
         </fieldset> 
+        <button><a href="${pageContext.request.contextPath}/CommandeServlet">Ajouter</a></button>
         <%@ include file="foot.jsp" %>
     </body>
 </html>

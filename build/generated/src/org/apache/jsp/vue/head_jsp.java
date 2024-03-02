@@ -3,40 +3,29 @@ package org.apache.jsp.vue;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
-import java.util.ArrayList;
-import model.Categorie;
+import model.Commande;
+import dao.CommandeDao;
+import model.Client;
 import java.util.List;
+import dao.ClientDao;
 
-public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class head_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
+
+static private org.apache.jasper.runtime.ProtectedFunctionMapper _jspx_fnmap_0;
+
+static {
+  _jspx_fnmap_0= org.apache.jasper.runtime.ProtectedFunctionMapper.getMapForFunction("fn:length", org.apache.taglibs.standard.functions.Functions.class, "length", new Class[] {java.lang.Object.class});
+}
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
 
   private static java.util.List<String> _jspx_dependants;
 
-  static {
-    _jspx_dependants = new java.util.ArrayList<String>(2);
-    _jspx_dependants.add("/vue/head.jsp");
-    _jspx_dependants.add("/vue/foot.jsp");
-  }
-
-  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
-  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
-
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
 
   public java.util.List<String> getDependants() {
     return _jspx_dependants;
-  }
-
-  public void _jspInit() {
-    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-    _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
-  }
-
-  public void _jspDestroy() {
-    _jspx_tagPool_c_forEach_var_items.release();
-    _jspx_tagPool_c_if_test.release();
   }
 
   public void _jspService(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +41,7 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext _jspx_page_context = null;
 
     try {
-      response.setContentType("text/html;charset=UTF-8");
+      response.setContentType("text/html");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
       _jspx_page_context = pageContext;
@@ -70,25 +59,29 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Menu</title>\n");
-      out.write("        <link href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/css/style.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        ");
-      out.write("\n");
-      out.write("<!DOCTYPE html>\n");
       out.write("<html lang=\"en\">\n");
       out.write("\n");
+      out.write("        ");
+ 
+        ClientDao cltdao = new ClientDao();
+        List<Client> tb = cltdao.liste();
+        request.setAttribute("list", tb);
+        
+      out.write("\n");
+      out.write("        \n");
+      out.write("        ");
+ 
+        CommandeDao cmd = new CommandeDao();
+        List<Commande> tbcomm = cmd.liste();
+        request.setAttribute("listComm", tbcomm);
+        
+      out.write("\n");
+      out.write("        \n");
       out.write("<head>\n");
       out.write("    <meta charset=\"UTF-8\">\n");
       out.write("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n");
       out.write("    <meta name=\"viewport\" content=\"width=device-width initial-scale=1.0\">\n");
-      out.write("    <title>Gestion Restaurant | Dashboard</title>\n");
+      out.write("    <title>RESTO-Delice | Dashboard</title>\n");
       out.write("    <!-- GLOBAL MAINLY STYLES-->\n");
       out.write("    <link href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
@@ -115,11 +108,11 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <!-- START HEADER-->\n");
       out.write("        <header class=\"header\">\n");
       out.write("            <div class=\"page-brand\">\n");
-      out.write("                <a class=\"link\" href=\"index.html\">\n");
-      out.write("                    <span class=\"brand\">Gestion\n");
-      out.write("                        <span class=\"brand-tip\">RESTAURANT</span>\n");
+      out.write("                <a class=\"link\" href=\"head.jsp\">\n");
+      out.write("                    <span class=\"brand\">RESTO\n");
+      out.write("                        <span class=\"brand-tip\">-Delice</span>\n");
       out.write("                    </span>\n");
-      out.write("                    <span class=\"brand-mini\">GR</span>\n");
+      out.write("                    <span class=\"brand-mini\">RD</span>\n");
       out.write("                </a>\n");
       out.write("            </div>\n");
       out.write("            <div class=\"flexbox flex-1\">\n");
@@ -149,10 +142,13 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("/theme/dist/assets/img/settings_30px.png\" />\n");
       out.write("                            <span></span>Admin<i class=\"fa fa-angle-down m-l-5\"></i></a>\n");
       out.write("                        <ul class=\"dropdown-menu dropdown-menu-right\">\n");
-      out.write("                            <a class=\"dropdown-item\" href=\"profile.html\"><i class=\"fa fa-user\"></i>Profile</a>\n");
-      out.write("                            <a class=\"dropdown-item\" href=\"profile.html\"><i class=\"fa fa-cog\"></i>Settings</a>\n");
+      out.write("                            <a class=\"dropdown-item\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/vue/liste_employee.jsp\"><i class=\"fa fa-user\"></i>Profile</a>\n");
       out.write("                            <li class=\"dropdown-divider\"></li>\n");
-      out.write("                            <a class=\"dropdown-item\" href=\"login.html\"><i class=\"fa fa-power-off\"></i>Deconnexion</a>\n");
+      out.write("                            <a class=\"dropdown-item\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/index.jsp\"><i class=\"fa fa-power-off\"></i>Deconnexion</a>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                </ul>\n");
@@ -170,60 +166,64 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("/theme/dist/assets/img/key_50px.png\" width=\"45px\" />\n");
       out.write("                    </div>\n");
       out.write("                    <div class=\"admin-info\">\n");
-      out.write("                        <div class=\"font-strong\">James Brown</div><small>Administrator</small></div>\n");
+      out.write("                        <div class=\"font-strong\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${sessionScope.user.usernameEmp}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</div><small>");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${sessionScope.user.profileEmp}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</small></div>\n");
       out.write("                </div>\n");
       out.write("                <ul class=\"side-menu metismenu\">\n");
       out.write("                    <li>\n");
-      out.write("                        <a class=\"active\" href=\"index.html\"><i class=\"sidebar-item-icon fa fa-th-large\"></i>\n");
+      out.write("                        <a class=\"active\" href=\"head.jsp\"><i class=\"sidebar-item-icon fa fa-th-large\"></i>\n");
       out.write("                            <span class=\"nav-label\">Acceuil</span>\n");
       out.write("                        </a>\n");
       out.write("                    </li>\n");
       out.write("                    <li class=\"heading\">FEATURES</li>\n");
       out.write("                    <li>\n");
-      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-bookmark\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Menu</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-cutlery\" aria-hidden=\"true\"></i>\n");
+      out.write("                            <span class=\"nav-label\">Menus</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/menu.jsp\">Nouvel menu</a></li>\n");
+      out.write("/MenuServlet\">Nouvel Menu</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_menu.jsp\">Liste des menu</a></li>\n");
+      out.write("/vue/liste_menu.jsp\">Liste Des Menus</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
-      out.write("                    \n");
+      out.write("                    <!-- CACHER GESTION CATEGORIE\n");
       out.write("                    <li>\n");
       out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-edit\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Categories</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                            <span class=\"nav-label\">Categories</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/vue/categorie.jsp\">Nouvelle Categorie</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_categorie.jsp\">Liste des Categories</a></li>\n");
+      out.write("/vue/liste_categorie.jsp\">Liste Des Categories</a></li>\n");
       out.write("                        </ul>\n");
-      out.write("                    </li>\n");
+      out.write("                    </li>-->\n");
       out.write("                    \n");
       out.write("                    <li>\n");
       out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-table\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Commandes</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                            <span class=\"nav-label\">Commandes</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/commande.jsp\">Nouvelle Commande</a></li>\n");
+      out.write("/CommandeServlet\">Nouvelle Commande</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_commande.jsp\">Liste des Commandes</a></li>\n");
+      out.write("/vue/liste_commande.jsp\">Liste Des Commandes</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                    <li>\n");
       out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-bar-chart\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Ventes</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                            <span class=\"nav-label\">Ventes</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/vente.jsp\">Nouvelle Vente</a></li>\n");
+      out.write("/VenteServlet\">Nouvelle Vente</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/vue/liste_vente.jsp\">Liste des Ventes</a></li>\n");
@@ -231,55 +231,55 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </li>\n");
       out.write("                    \n");
       out.write("                    <li>\n");
-      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-map\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Inventaires</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-cogs\" aria-hidden=\"true\"></i>\n");
+      out.write("                            <span class=\"nav-label\">Inventaires</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/vue/inventaire.jsp\">Nouvel Inventaire</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_inventaire.jsp\">Liste des Inventaires</a></li>\n");
+      out.write("/vue/liste_inventaire.jsp\">Liste Des Inventaires</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                    \n");
       out.write("                    <li class=\"heading\">PAGES</li>\n");
       out.write("                    <li>\n");
-      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-envelope\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Stocks</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-line-chart\" aria-hidden=\"true\"></i>\n");
+      out.write("                            <span class=\"nav-label\">Stocks</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/stocker.jsp\">Nouvel Stock</a></li>\n");
+      out.write("/StockerServlet\">Nouvel Stock</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_stocker.jsp\">Liste des Stocks</a></li>\n");
+      out.write("/vue/liste_stocker.jsp\">Liste Des Stocks</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                    \n");
       out.write("                    <li>\n");
-      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-file-text\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Clients</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-users\" aria-hidden=\"true\"></i>\n");
+      out.write("                            <span class=\"nav-label\">Clients</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/vue/client.jsp\">Nouvel Client</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_client.jsp\">Liste des Clients</a></li>\n");
+      out.write("/vue/liste_client.jsp\">Liste Des Clients</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                    \n");
       out.write("                    <li>\n");
-      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-sitemap\"></i>\n");
-      out.write("                            <span class=\"nav-label\">Gestion Des Employees</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
+      out.write("                        <a href=\"javascript:;\"><i class=\"sidebar-item-icon fa fa-user-o\" aria-hidden=\"true\"\"></i>\n");
+      out.write("                            <span class=\"nav-label\">Employees</span><i class=\"fa fa-angle-left arrow\"></i></a>\n");
       out.write("                        <ul class=\"nav-2-level collapse\">\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/vue/employee.jsp\">Nouvel Employee</a></li>\n");
       out.write("                            <li><a href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/vue/liste_employee.jsp\">Liste des Employees</a></li>\n");
+      out.write("/vue/liste_employee.jsp\">Liste Des Employees</a></li>\n");
       out.write("                        </ul>\n");
       out.write("                    </li>\n");
       out.write("                    \n");
@@ -294,9 +294,15 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div class=\"col-lg-3 col-md-6\">\n");
       out.write("                        <div class=\"ibox bg-success color-white widget-stat\">\n");
       out.write("                            <div class=\"ibox-body\">\n");
-      out.write("                                <h2 class=\"m-b-5 font-strong\">201</h2>\n");
-      out.write("                                <div class=\"m-b-5\">NEW ORDERS</div><i class=\"ti-shopping-cart widget-stat-icon\"></i>\n");
-      out.write("                                <div><i class=\"fa fa-level-up m-r-5\"></i><small>25% higher</small></div>\n");
+      out.write("                                <!--<h2 class=\"m-b-5 font-strong\">201</h2>-->\n");
+      out.write("                                <c:set var=\"numCommandes\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${fn:length(listComm)}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_0));
+      out.write("\" />\n");
+      out.write("                                <h2 class=\"m-b-5 font-strong\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${numCommandes}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</h2>\n");
+      out.write("                                <div class=\"m-b-5\">COMMANDES</div><i class=\"ti-shopping-cart widget-stat-icon\"></i>\n");
+      out.write("                                 <!--<div><i class=\"fa fa-level-up m-r-5\"></i><small>25% higher</small></div>-->\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
@@ -321,9 +327,16 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div class=\"col-lg-3 col-md-6\">\n");
       out.write("                        <div class=\"ibox bg-danger color-white widget-stat\">\n");
       out.write("                            <div class=\"ibox-body\">\n");
-      out.write("                                <h2 class=\"m-b-5 font-strong\">108</h2>\n");
-      out.write("                                <div class=\"m-b-5\">NEW USERS</div><i class=\"ti-user widget-stat-icon\"></i>\n");
-      out.write("                                <div><i class=\"fa fa-level-down m-r-5\"></i><small>-12% Lower</small></div>\n");
+      out.write("                                <c:set var=\"numClients\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${fn:length(list)}", java.lang.String.class, (PageContext)_jspx_page_context, _jspx_fnmap_0));
+      out.write("\" />\n");
+      out.write("                                <h2 class=\"m-b-5 font-strong\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${numClients}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</h2>\n");
+      out.write("\n");
+      out.write("                                <!--<h2 class=\"m-b-5 font-strong\">108</h2>-->\n");
+      out.write("                                <div class=\"m-b-5\">CLIENTS PRESENTS</div><i class=\"ti-user widget-stat-icon\"></i>\n");
+      out.write("                                <!--<div><i class=\"fa fa-level-down m-r-5\"></i><small>-12% Lower</small></div>-->\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
@@ -797,116 +810,6 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        margin-left: 10px;\n");
       out.write("                    }\n");
       out.write("                </style>\n");
-      out.write("\n");
-      out.write("        <fieldset>\n");
-      out.write("            <legend>Formulaire Des Menu</legend>\n");
-      out.write("        \n");
-      out.write("                <form action=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/MenuServlet\" method=\"post\">\n");
-      out.write("                    \n");
-      out.write("                    <div>\n");
-      out.write("                        <label>Nom: </label>\n");
-      out.write("                        <input type=\"text\" name=\"nomMenu\" value=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${menu.nomMenu}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" size=\"30\"/>\n");
-      out.write("                    </div>\n");
-      out.write("\n");
-      out.write("                    <div>\n");
-      out.write("                        <label>Prix: </label>\n");
-      out.write("                        <input type=\"number\" name=\"prixMenu\" value=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${menu.prixMenu}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" size=\"30\"/>\n");
-      out.write("                    </div>\n");
-      out.write("\n");
-      out.write("                    <div>\n");
-      out.write("                        <label>Categorie: </label>\n");
-      out.write("                        <select name=\"idCat\">\n");
-      out.write("                            ");
-      if (_jspx_meth_c_forEach_0(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("                        </select>\n");
-      out.write("                    </div>\n");
-      out.write("                    \n");
-      out.write("                 \n");
-      out.write("                    <div>\n");
-      out.write("                        <label>&nbsp;</label>\n");
-      out.write("                        ");
-      if (_jspx_meth_c_if_0(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("                            \n");
-      out.write("                        ");
-      if (_jspx_meth_c_if_1(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("                        \n");
-      out.write("                    </div>\n");
-      out.write("                </form>\n");
-      out.write("        </fieldset>\n");
-      out.write("        ");
-      out.write(" </div>\n");
-      out.write("            <!-- END PAGE CONTENT-->\n");
-      out.write("            <footer class=\"page-footer\">\n");
-      out.write("                <div class=\"font-13\">2023 © <b>Gestion Restaurant</b> - Tout Droit Reserve.</div>\n");
-      out.write("<!--                <a class=\"px-4\" href=\"http://themeforest.net/item/adminca-responsive-bootstrap-4-3-angular-4-admin-dashboard-template/20912589\" target=\"_blank\">BUY PREMIUM</a>-->\n");
-      out.write("                <div class=\"to-top\"><i class=\"fa fa-angle-double-up\"></i></div>\n");
-      out.write("            </footer>\n");
-      out.write("        </div>\n");
-      out.write("    </div>\n");
-      out.write("    <!-- BEGIN THEME CONFIG PANEL-->\n");
-      out.write("\n");
-      out.write("    <!-- END THEME CONFIG PANEL-->\n");
-      out.write("    <!-- BEGIN PAGA BACKDROPS-->\n");
-      out.write("    <div class=\"sidenav-backdrop backdrop\"></div>\n");
-      out.write("    <div class=\"preloader-backdrop\">\n");
-      out.write("        <div class=\"page-preloader\">Loading</div>\n");
-      out.write("    </div>\n");
-      out.write("    <!-- END PAGA BACKDROPS-->\n");
-      out.write("    <!-- CORE PLUGINS-->\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/jquery/dist/jquery.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/popper.js/dist/umd/popper.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/bootstrap/dist/js/bootstrap.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/metisMenu/dist/metisMenu.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <!-- PAGE LEVEL PLUGINS-->\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/chart.js/dist/Chart.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <!-- CORE SCRIPTS-->\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/js/app.min.js\" type=\"text/javascript\"></script>\n");
-      out.write("    <!-- PAGE LEVEL SCRIPTS-->\n");
-      out.write("    <script src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/theme/dist/assets/js/scripts/dashboard_1_demo.js\" type=\"text/javascript\"></script>\n");
-      out.write("</body>\n");
-      out.write("\n");
-      out.write("</html>");
-      out.write("\n");
-      out.write("    </body>\n");
-      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
@@ -918,106 +821,5 @@ public final class menu_jsp extends org.apache.jasper.runtime.HttpJspBase
     } finally {
       _jspxFactory.releasePageContext(_jspx_page_context);
     }
-  }
-
-  private boolean _jspx_meth_c_forEach_0(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:forEach
-    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
-    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
-    _jspx_th_c_forEach_0.setParent(null);
-    _jspx_th_c_forEach_0.setVar("categorie");
-    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${categories}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
-    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
-    try {
-      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
-      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-        do {
-          out.write("\n");
-          out.write("                                <option value=\"");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${categorie.idCat}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write('"');
-          out.write('>');
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${categorie.nomCat}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("</option>\n");
-          out.write("                            ");
-          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
-          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-            break;
-        } while (true);
-      }
-      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-        return true;
-      }
-    } catch (Throwable _jspx_exception) {
-      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
-        out = _jspx_page_context.popBody();
-      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
-    } finally {
-      _jspx_th_c_forEach_0.doFinally();
-      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
-    }
-    return false;
-  }
-
-  private boolean _jspx_meth_c_if_0(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_0.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_0.setParent(null);
-    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${menu==null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
-    if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write("\n");
-        out.write("                            <input type=\"submit\" name=\"enregistrer\" value=\"Enregistrer\"/>\n");
-        out.write("                        ");
-        int evalDoAfterBody = _jspx_th_c_if_0.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
-      return true;
-    }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_if_1(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_1.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_1.setParent(null);
-    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${menu!=null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
-    if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write("\n");
-        out.write("                            <input type=\"hidden\" name=\"idMenu\" value=\"");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${menu.idMenu}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("\" size=\"30\"/>\n");
-        out.write("                            <input type=\"submit\" name=\"modifier\" value=\"Modifier\"/>\n");
-        out.write("                        ");
-        int evalDoAfterBody = _jspx_th_c_if_1.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
-      return true;
-    }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
-    return false;
   }
 }

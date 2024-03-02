@@ -5,18 +5,25 @@
  */
 package controller;
 
+import dao.ClientDao;
+import dao.CommandeDao;
+import dao.MenuDao;
 import dao.VenteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Client;
+import model.Commande;
+import model.Menu;
 import model.Vente;
 
 /**
@@ -99,11 +106,20 @@ public class VenteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(VenteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+            CommandeDao comdao = new CommandeDao();
+            List<Commande> commandes = comdao.liste();
+            request.setAttribute("commandes", commandes);
+        
+            MenuDao mendao = new MenuDao();
+            List<Menu> menus = mendao.liste();
+            request.setAttribute("menus", menus);
+            
+            ClientDao cltdao = new ClientDao();
+            List<Client> clients = cltdao.liste();
+            request.setAttribute("clients", clients);
+            
+            request.getRequestDispatcher("/vue/vente.jsp").forward(request, response);
     }
 
     /**

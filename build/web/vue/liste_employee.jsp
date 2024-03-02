@@ -12,18 +12,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Liste Des Employees</title>
+        <title>Liste Employees</title>
     </head>
     <body>
         <%@ include file="head.jsp" %>
         <% 
         EmployeeDao empdao = new EmployeeDao();
-        List<Employee> tb = empdao.liste();
-        request.setAttribute("list", tb);
+        List<Employee> tbemp = empdao.liste();
+        request.setAttribute("list", tbemp);
         %>
         <fieldset>
             <legend>Liste Des Employees</legend>
-            <table border="1" width="100%">
+            <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -50,7 +53,10 @@
                     </c:forEach>
                 </tbody>
             
-            </table>  
+            </table> 
+                        </div>
+                    </div>
+            </div>
         </fieldset> 
         <button><a href="${pageContext.request.contextPath}/vue/employee.jsp">Ajouter</a></button>
         <%@ include file="foot.jsp" %>

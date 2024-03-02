@@ -74,7 +74,7 @@ public class EmployeeDao extends Dao<Employee>{
     }
     
     //Method Connexion
-    public boolean connexion(String usernameEmp, String passwordEmp) {
+    /*public boolean connexion(String usernameEmp, String passwordEmp) {
         boolean b = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from employee where usernameEmp=:usernameEmp and passwordEmp=:passwordEmp");
@@ -82,6 +82,20 @@ public class EmployeeDao extends Dao<Employee>{
         query.setParameter("passwordEmp", passwordEmp);
         if(query.uniqueResult()!=null){
             b = true;
+        }
+        return b;
+    }*/
+    
+    //Method Connexion
+    public Employee connexion(String usernameEmp, String passwordEmp) {
+        Employee b = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from employee where usernameEmp=:usernameEmp and passwordEmp=:passwordEmp");
+        query.setParameter("usernameEmp", usernameEmp);
+        query.setParameter("passwordEmp", passwordEmp);
+        //query.setParameter("profileEmp", profileEmp);
+        if(query.uniqueResult()!=null){
+            b = (Employee) query.uniqueResult();
         }
         return b;
     }

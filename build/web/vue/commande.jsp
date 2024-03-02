@@ -15,7 +15,7 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Commandes</legend>
+            <legend>Passer Une Commande</legend>
         
                 <form action="${pageContext.request.contextPath}/CommandeServlet" method="post">
                     
@@ -33,18 +33,26 @@
                         <label>Total: </label>
                         <input type="number" name="totalCommande" value="${commande.totalCommande}" size="30"/>
                     </div>
+                   
                     
                     <div>
                         <label>Client: </label>
-                        <input type="text" name="idClient" value="${commande.idClient}" size="30"/>
-                    </div>
+                        <select name="idClient">
+                            <c:forEach var="client" items="${clients}">
+                                <option value="${client.idClient}">${client.nomClient}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
                     
-                    
-
                     <div>
                         <label>Menu: </label>
-                        <input type="text" name="idMenu" value="${commande.idMenu}" size="30"/>
-                    </div>
+                        <select name="idMenu">
+                            <c:forEach var="menu" items="${menus}">
+                                <option value="${menu.idMenu}">${menu.nomMenu}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+                         
 
                     <div>
                         <label>&nbsp;</label>

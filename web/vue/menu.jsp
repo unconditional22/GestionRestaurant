@@ -3,6 +3,7 @@
     Created on : Mar 10, 2023, 4:44:22 PM
     Author     : kabor
 --%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Categorie"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,16 +12,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menu</title>
+        <title>Menus</title>
         <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Menu</legend>
+            <legend>Ajouter un Menu</legend>
         
                 <form action="${pageContext.request.contextPath}/MenuServlet" method="post">
-                    
+                     
                     <div>
                         <label>Nom: </label>
                         <input type="text" name="nomMenu" value="${menu.nomMenu}" size="30"/>
@@ -31,8 +32,6 @@
                         <input type="number" name="prixMenu" value="${menu.prixMenu}" size="30"/>
                     </div>
 
-                    
-                    
                     <div>
                         <label>Categorie: </label>
                         <select name="idCat">
@@ -40,20 +39,8 @@
                                 <option value="${categorie.idCat}">${categorie.nomCat}</option>
                             </c:forEach>
                         </select>
-                    </div>
+                    </div>                  
                     
-                    <div>
-                        <label>Categorie: </label>
-                        <select name="idCat">
-                            <c:forEach var="categorie" items="${categories}">
-                                <option value="${categorie.idCat}" <c:if test="${categorie.idCat eq menu.idCat}">selected</c:if>>${categorie.nomCat}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    
-                    
-
-        
                     <div>
                         <label>&nbsp;</label>
                         <c:if test="${menu==null}">
@@ -68,6 +55,7 @@
                     </div>
                 </form>
         </fieldset>
+                    <button><a href="${pageContext.request.contextPath}/vue/categorie.jsp">Ajouter Une Nouvelle Categorie</a></button>
         <%@ include file="foot.jsp" %>
     </body>
 </html>

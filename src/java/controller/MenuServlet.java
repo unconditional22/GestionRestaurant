@@ -8,7 +8,6 @@ package controller;
 import dao.CategorieDao;
 import dao.MenuDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -75,6 +74,11 @@ public class MenuServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/vue/liste_menu.jsp");
         }
         
+        //liste des menus
+        List<Menu> menus = mendao.liste();
+        request.setAttribute("menus", menus);
+        //request.getRequestDispatcher("/vue/liste_menu.jsp").forward(request, response);
+        
       }
         
     
@@ -95,42 +99,7 @@ public class MenuServlet extends HttpServlet {
             CategorieDao catDao = new CategorieDao();
             List<Categorie> categories = catDao.liste();
             request.setAttribute("categories", categories);
-
-            MenuDao mendao = new MenuDao();
-            int idMenu = Integer.parseInt(request.getParameter("idm"));
-            Menu men = mendao.recherche(idMenu);
-            request.setAttribute("menu", men);
-
             request.getRequestDispatcher("/vue/menu.jsp").forward(request, response);
-
-            System.out.println("Number of categories: " + categories.size());
-            for (Categorie categorie : categories) {
-                System.out.println(categorie.getIdCat() + " " + categorie.getNomCat());
-            }
-
-//            MenuDao mendao = new MenuDao();
-//            CategorieDao catDao = new CategorieDao();
-//            List<Categorie> categories = catDao.liste();
-//            request.setAttribute("categories", categories);
-//
-//            String idmParam = request.getParameter("idm");
-//            int idMenu = 0; // default value
-//            if (idmParam != null && !idmParam.isEmpty()) {
-//                idMenu = Integer.parseInt(idmParam);
-//            }
-//            Menu men = mendao.recherche(idMenu);
-//            request.setAttribute("menu", men);
-//
-//            request.getRequestDispatcher("/vue/menu.jsp").forward(request, response);
-//
-//            System.out.println("Number of categories: " + categories.size());
-//            for (Categorie categorie : categories) {
-//                System.out.println(categorie.getIdCat() + " " + categorie.getNomCat());
-//            }
-
-
-        
-        
     }
 
     /**

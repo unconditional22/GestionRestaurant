@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Employee;
 
 /**
@@ -75,14 +76,25 @@ public class EmployeeServlet extends HttpServlet {
        if(request.getParameter("connexion")!=null){
         String usernameEmp = request.getParameter("usernameEmp");
         String passwordEmp = request.getParameter("passwordEmp");
-        boolean b = empdao.connexion(usernameEmp, passwordEmp);
-        if(b==true){
+        //String profileEmp = request.getParameter("profileEmp");
+        //boolean b = empdao.connexion(usernameEmp, passwordEmp);
+        Employee b = empdao.connexion(usernameEmp, passwordEmp);
+        if(b!=null){
+            //La session
+            HttpSession session = request.getSession();
+            session.setAttribute("user", b);
+        }
             response.sendRedirect(request.getContextPath()+"/vue/liste_employee.jsp");
         }
         else{
             response.sendRedirect(request.getContextPath()+"index.jsp");
         }
-    }
+
+       if(request.getParameter("code")!=null){
+           HttpSession session = request.getSession();
+           session.invalidate();
+           response.sendRedirect(request.getContextPath()+"/vue/liste_employee.jsp");
+       }
        
     }
 

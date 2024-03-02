@@ -1,12 +1,37 @@
 
+<%@page import="model.Employee"%>
+<%@page import="dao.EmployeeDao"%>
+<%@page import="model.Commande"%>
+<%@page import="dao.CommandeDao"%>
+<%@page import="model.Client"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.ClientDao"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+        <% 
+        ClientDao cltdao = new ClientDao();
+        List<Client> tb = cltdao.liste();
+        request.setAttribute("list", tb);
+        %>
+        
+        <% 
+        EmployeeDao emp1 = new EmployeeDao();
+        List<Employee> tbemp1 = emp1.liste();
+        request.setAttribute("listemp1", tbemp1);
+        %>
+        
+        <% 
+        CommandeDao cmd = new CommandeDao();
+        List<Commande> tbcomm = cmd.liste();
+        request.setAttribute("listComm", tbcomm);
+        %>
+        
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Gestion Restaurant | Dashboard</title>
+    <title>RESTO-Delice | Dashboard</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="${pageContext.request.contextPath}/theme/dist/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/theme/dist/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -16,6 +41,8 @@
     <!-- THEME STYLES-->
     <link href="${pageContext.request.contextPath}/theme/dist/assets/css/main.min.css" rel="stylesheet" />
     <!-- PAGE LEVEL STYLES-->
+        <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+
 </head>
 
 <body class="fixed-navbar">
@@ -23,11 +50,11 @@
         <!-- START HEADER-->
         <header class="header">
             <div class="page-brand">
-                <a class="link" href="index.html">
-                    <span class="brand">Gestion
-                        <span class="brand-tip">RESTAURANT</span>
+                <a class="link" href="vue/head.jsp">
+                    <span class="brand">RESTO
+                        <span class="brand-tip">-Delice</span>
                     </span>
-                    <span class="brand-mini">GR</span>
+                    <span class="brand-mini">RD</span>
                 </a>
             </div>
             <div class="flexbox flex-1">
@@ -55,10 +82,9 @@
                             <img src="${pageContext.request.contextPath}/theme/dist/assets/img/settings_30px.png" />
                             <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
-                            <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/vue/liste_employee.jsp"><i class="fa fa-user"></i>Profile</a>
                             <li class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Deconnexion</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/index.jsp"><i class="fa fa-power-off"></i>Deconnexion</a>
                         </ul>
                     </li>
                 </ul>
@@ -74,84 +100,84 @@
                         <img src="${pageContext.request.contextPath}/theme/dist/assets/img/key_50px.png" width="45px" />
                     </div>
                     <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small></div>
+                        <div class="font-strong">${sessionScope.user.usernameEmp}</div><small>${sessionScope.user.profileEmp}</small></div>
                 </div>
                 <ul class="side-menu metismenu">
                     <li>
-                        <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <a class="active" href="vue/head.jsp"><i class="sidebar-item-icon fa fa-th-large"></i>
                             <span class="nav-label">Acceuil</span>
                         </a>
                     </li>
-                    <li class="heading">FEATURES</li>
+                    <li class="heading"></li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                            <span class="nav-label">Gestion Des Menu</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-cutlery" aria-hidden="true"></i>
+                            <span class="nav-label">Menus</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="${pageContext.request.contextPath}/vue/menu.jsp">Nouvel menu</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_menu.jsp">Liste des menu</a></li>
+                            <li><a href="${pageContext.request.contextPath}/MenuServlet">Nouvel Menu</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_menu.jsp">Liste Des Menus</a></li>
                         </ul>
                     </li>
-                    
+                    <!-- CACHER GESTION CATEGORIE
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                            <span class="nav-label">Gestion Des Categories</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Categories</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li><a href="${pageContext.request.contextPath}/vue/categorie.jsp">Nouvelle Categorie</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_categorie.jsp">Liste des Categories</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_categorie.jsp">Liste Des Categories</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                     
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                            <span class="nav-label">Gestion Des Commandes</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Commandes</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="${pageContext.request.contextPath}/vue/commande.jsp">Nouvelle Commande</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_commande.jsp">Liste des Commandes</a></li>
+                            <li><a href="${pageContext.request.contextPath}/CommandeServlet">Nouvelle Commande</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_commande.jsp">Liste Des Commandes</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                            <span class="nav-label">Gestion Des Ventes</span><i class="fa fa-angle-left arrow"></i></a>
+                            <span class="nav-label">Ventes</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="${pageContext.request.contextPath}/vue/vente.jsp">Nouvelle Vente</a></li>
+                            <li><a href="${pageContext.request.contextPath}/VenteServlet">Nouvelle Vente</a></li>
                             <li><a href="${pageContext.request.contextPath}/vue/liste_vente.jsp">Liste des Ventes</a></li>
                         </ul>
                     </li>
                     
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
-                            <span class="nav-label">Gestion Des Inventaires</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-cogs" aria-hidden="true"></i>
+                            <span class="nav-label">Inventaires</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li><a href="${pageContext.request.contextPath}/vue/inventaire.jsp">Nouvel Inventaire</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_inventaire.jsp">Liste des Inventaires</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_inventaire.jsp">Liste Des Inventaires</a></li>
                         </ul>
                     </li>
                     
-                    <li class="heading">PAGES</li>
+                    <li class="heading"></li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
-                            <span class="nav-label">Gestion Des Stocks</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-line-chart" aria-hidden="true"></i>
+                            <span class="nav-label">Stocks</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
-                            <li><a href="${pageContext.request.contextPath}/vue/stocker.jsp">Nouvel Stock</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_stocker.jsp">Liste des Stocks</a></li>
+                            <li><a href="${pageContext.request.contextPath}/StockerServlet">Nouvel Stock</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_stocker.jsp">Liste Des Stocks</a></li>
                         </ul>
                     </li>
                     
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
-                            <span class="nav-label">Gestion Des Clients</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-users" aria-hidden="true"></i>
+                            <span class="nav-label">Clients</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li><a href="${pageContext.request.contextPath}/vue/client.jsp">Nouvel Client</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_client.jsp">Liste des Clients</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_client.jsp">Liste Des Clients</a></li>
                         </ul>
                     </li>
                     
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                            <span class="nav-label">Gestion Des Employees</span><i class="fa fa-angle-left arrow"></i></a>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-user-o" aria-hidden="true""></i>
+                            <span class="nav-label">Employees</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li><a href="${pageContext.request.contextPath}/vue/employee.jsp">Nouvel Employee</a></li>
-                            <li><a href="${pageContext.request.contextPath}/vue/liste_employee.jsp">Liste des Employees</a></li>
+                            <li><a href="${pageContext.request.contextPath}/vue/liste_employee.jsp">Liste Des Employees</a></li>
                         </ul>
                     </li>
                     
@@ -166,13 +192,15 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-success color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">201</h2>
-                                <div class="m-b-5">NEW ORDERS</div><i class="ti-shopping-cart widget-stat-icon"></i>
-                                <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
+                                <!--<h2 class="m-b-5 font-strong">201</h2>-->
+                                <c:set var="numCommandes" value="${fn:length(listComm)}" />
+                                <h2 class="m-b-5 font-strong">${numCommandes}</h2>
+                                <div class="m-b-5">COMMANDES</div><i class="ti-shopping-cart widget-stat-icon"></i>
+                                 <!--<div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>-->
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <!--<div class="col-lg-3 col-md-6">
                         <div class="ibox bg-info color-white widget-stat">
                             <div class="ibox-body">
                                 <h2 class="m-b-5 font-strong">1250</h2>
@@ -189,13 +217,16 @@
                                 <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-lg-3 col-md-6">
                         <div class="ibox bg-danger color-white widget-stat">
                             <div class="ibox-body">
-                                <h2 class="m-b-5 font-strong">108</h2>
-                                <div class="m-b-5">NEW USERS</div><i class="ti-user widget-stat-icon"></i>
-                                <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
+                                <c:set var="numClients" value="${fn:length(list)}" />
+                                <h2 class="m-b-5 font-strong">${numClients}</h2>
+
+                                <!--<h2 class="m-b-5 font-strong">108</h2>-->
+                                <div class="m-b-5">CLIENTS PRESENTS</div><i class="ti-user widget-stat-icon"></i>
+                                <!--<div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>-->
                             </div>
                         </div>
                     </div>

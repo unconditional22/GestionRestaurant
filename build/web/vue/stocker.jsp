@@ -15,24 +15,57 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Stocks</legend>
+            <legend>Les Stocks</legend>
         
                 <form action="${pageContext.request.contextPath}/StockerServlet" method="post">
                     
                     <div>
                         <label>Menu: </label>
-                        <input type="text" name="idMenu" value="${stocker.idMenu}" size="30"/>
-                    </div>
-
-                    <div>
+                        <select name="idMenu">
+                            <c:forEach var="menu" items="${menus}">
+                                <option value="${menu.idMenu}">${menu.nomMenu}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+                    
+                    <%-- <div>
                         <label>Inventaire: </label>
-                        <input type="text" name="idInvent" value="${stocker.idInvent}" size="30"/>
-                    </div>
+                        <select name="idInvent">
+                            <c:forEach var="inventaire" items="${invents}">
+                                <option value="${inventaire.idInvent}">${inventaire.nomInvent}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+                    
+                    <div>
+                        <label>Choisir les ingredients correspondant:</label>
+                        <select name="idInvent" multiple>
+                        <c:forEach var="inventaire" items="${invents}">
+                                <option value="${inventaire.idInvent}">${inventaire.nomInvent}</option>
+                            </c:forEach>
+                      </select>
+                    </div>--%>
 
                     <div>
+                        <label>Choisissez les ingredients:</label>
+                        <select name="idInvent" multiple>
+                          <c:forEach var="inventaire" items="${invents}">
+                            <option value="${inventaire.idInvent}">${inventaire.nomInvent}</option>
+                          </c:forEach>
+                        </select>
+                      </div>
+
+                    
+                    <%--<div>
                         <label>Quantite: </label>
                         <input type="number" name="quantiteStocker" value="${stocker.quantiteStocker}" size="30"/>
+                    </div>--%>
+                    
+                    <div>
+                        <label>Quantite: </label>
+                        <input type="text" name="quantiteStocker" value="${stocker.quantiteStocker}" size="30" placeholder="comme-ci (e.g. 2,4,1.5)"/>
                     </div>
+
                     
                     <div>
                         <label>Unite: </label>

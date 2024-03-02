@@ -5,19 +5,25 @@
  */
 package controller;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import dao.ClientDao;
 import dao.CommandeDao;
+import dao.MenuDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Client;
 import model.Commande;
+import model.Menu;
 
 /**
  *
@@ -41,6 +47,7 @@ public class CommandeServlet extends HttpServlet {
         
         if(request.getParameter("enregistrer")!=null){
             SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+            
             
             Date dateCommande = d.parse(request.getParameter("dateCommande"));
             int quantiteCommande = Integer.parseInt(request.getParameter("quantiteCommande"));
@@ -72,8 +79,9 @@ public class CommandeServlet extends HttpServlet {
         
         if(request.getParameter("modifier")!=null){
             SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
-
+            
             int idCommande = Integer.parseInt(request.getParameter("idCommande"));
+            
 
             Date dateCommande = d.parse(request.getParameter("dateCommande"));            
             int quantiteCommande = Integer.parseInt(request.getParameter("quantiteCommande"));
@@ -85,6 +93,11 @@ public class CommandeServlet extends HttpServlet {
             comdao.modifier(com, idCommande);
             response.sendRedirect(request.getContextPath()+"/vue/liste_commande.jsp");
         }
+        
+        //liste des Commandes
+       //List<Commande> Commandes = comdao.liste();
+        //request.setAttribute("Commandes", Commandes);
+        //request.getRequestDispatcher("/vue/liste_commande.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -99,11 +112,17 @@ public class CommandeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(CommandeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+            MenuDao mendao = new MenuDao();
+            List<Menu> menus = mendao.liste();
+            request.setAttribute("menus", menus);
+            
+            ClientDao cltdao = new ClientDao();
+            List<Client> clients = cltdao.liste();
+            request.setAttribute("clients", clients);
+            
+            request.getRequestDispatcher("/vue/commande.jsp").forward(request, response);
+
     }
 
     /**

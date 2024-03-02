@@ -15,7 +15,7 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Categories</legend>
+            <legend>Categories</legend>
         
                 <form action="${pageContext.request.contextPath}/CategorieServlet" method="post">
                     
@@ -38,6 +38,7 @@
                     </div>
                 </form>
         </fieldset>
+                    <button><a href="${pageContext.request.contextPath}/vue/liste_categorie.jsp">Voir Liste Des Categories</a></button>
         <%@ include file="foot.jsp" %>
     </body>
 </html>

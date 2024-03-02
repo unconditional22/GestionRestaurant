@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Gestion Restaurant | Login</title>
+    <title>RESTO-Delice | Login</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="${pageContext.request.contextPath}/theme/dist/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/theme/dist/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
 <body class="bg-silver-300">
     <div class="content">
         <div class="brand">
-            <a class="link" href="index.html">Gestion Restaurant</a>
+            <a class="link" href="index.html">RESTO-Delice</a>
         </div>
         <form id="login-form" action="${pageContext.request.contextPath}/EmployeeServlet" method="post">
             <h2 class="login-title">Authentification</h2>
@@ -43,7 +43,7 @@
                 <a href="forgot_password.html">Forgot password?</a>
             </div>-->
             <div class="form-group">
-                <button class="btn btn-info btn-block" type="connexion">Connexion</button>
+                <button class="btn btn-info btn-block" type="submit" name="connexion">Connexion</button>
             </div>
 <!--            <div class="social-auth-hr">
                 <span>Or login with</span>

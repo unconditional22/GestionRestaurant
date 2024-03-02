@@ -3,6 +3,8 @@
     Created on : Mar 10, 2023, 4:44:32 PM
     Author     : kabor
 --%>
+<%@page import="model.Categorie"%>
+<%@page import="dao.CategorieDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="model.Menu"%>
@@ -18,12 +20,22 @@
         <%@ include file="head.jsp" %>
         <% 
         MenuDao mendao = new MenuDao();
-        List<Menu> tb = mendao.liste();
-        request.setAttribute("list", tb);
+        List<Menu> tbm = mendao.liste();
+        request.setAttribute("list", tbm);
         %>
+        
+        <% 
+        CategorieDao catdao = new CategorieDao();
+        List<Categorie> tbcat = catdao.liste();
+        request.setAttribute("listCat", tbcat);
+        %>
+        
         <fieldset>
-            <legend>Liste Des Menu</legend>
-            <table border="1" width="100%">
+            <legend>Liste Des Menus</legend>
+                <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -41,10 +53,10 @@
                             <td>${statut.count}</td>
                             <td>${men.nomMenu}</td>
                             <td>${men.prixMenu}</td>
-                            <td>${men.idCat}</td>
+                            <td><c:forEach items="${listCat}" var="mn"> <c:if test= "${men.idCat eq mn.idCat}"> ${mn.nomCat} </c:if> </c:forEach></td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/MenuServlet?ids=${men.ide}">Supprimer</a>
-                                <a href="${pageContext.request.contextPath}/MenuServlet?idm=${men.ide}">Modifier</a>
+                                <a href="${pageContext.request.contextPath}/MenuServlet?ids=${men.idMenu}">Supprimer</a>
+                                <a href="${pageContext.request.contextPath}/MenuServlet?idm=${men.idMenu}">Modifier</a>
 
                             </td>
                         </tr>
@@ -52,8 +64,12 @@
                 </tbody>
             
             </table>  
+        </div>
+    </div>
+</div>
+            
         </fieldset> 
-        <button><a href="${pageContext.request.contextPath}/vue/menu.jsp">Ajouter</a></button>
+        <button><a href="${pageContext.request.contextPath}/MenuServlet">Ajouter</a></button>
         <%@ include file="foot.jsp" %>
     </body>
 </html>

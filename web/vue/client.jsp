@@ -15,7 +15,7 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Clients</legend>
+            <legend>Clients</legend>
         
                 <form action="${pageContext.request.contextPath}/ClientServlet" method="post">
                     

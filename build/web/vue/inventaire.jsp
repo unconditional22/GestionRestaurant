@@ -15,7 +15,7 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Inventaires</legend>
+            <legend>Les Inventaires</legend>
         
                 <form action="${pageContext.request.contextPath}/InventaireServlet" method="post">
                     

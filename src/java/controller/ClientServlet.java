@@ -77,10 +77,10 @@ public class ClientServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"/vue/liste_client.jsp");
         }
         
-                //liste des clients
-//        List<Client> clients = cltdao.liste();
-//        request.setAttribute("clients", clients);
-//        request.getRequestDispatcher("/vue/liste_client.jsp").forward(request, response);
+         //liste des clients
+         List<Client> clients = cltdao.liste();
+        request.setAttribute("clients", clients);
+        //request.getRequestDispatcher("/vue/liste_client.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,6 +96,11 @@ public class ClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        ClientDao cltdao = new ClientDao();
+        List<Client> clients = cltdao.liste();
+        request.setAttribute("clients", clients);
+        //request.getRequestDispatcher("/vue/client.jsp").forward(request, response);
     }
 
     /**

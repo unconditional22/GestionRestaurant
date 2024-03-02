@@ -18,12 +18,15 @@
         <%@ include file="head.jsp" %>
         <% 
         CategorieDao catdao = new CategorieDao();
-        List<Categorie> tb = catdao.liste();
-        request.setAttribute("list", tb);
+        List<Categorie> tbcat = catdao.liste();
+        request.setAttribute("list", tbcat);
         %>
         <fieldset>
             <legend>Liste Des Categories</legend>
-            <table border="1" width="100%">
+            <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -48,6 +51,9 @@
                 </tbody>
             
             </table>  
+                        </div>
+                    </div>
+            </div>
         </fieldset> 
         <button><a href="${pageContext.request.contextPath}/vue/categorie.jsp">Ajouter</a></button>
         

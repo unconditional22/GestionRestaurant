@@ -15,15 +15,20 @@
         <title>Liste Clients</title>
     </head>
     <body>
-        <%@ include file="head.jsp" %>
-        <% 
+         <%@ include file="head.jsp" %>
+         
+       <%-- <% 
         ClientDao cltdao = new ClientDao();
         List<Client> tb = cltdao.liste();
         request.setAttribute("list", tb);
-        %>
+           %> --%>
+       
         <fieldset>
             <legend>Liste Des Clients</legend>
-            <table border="1" width="100%">
+            <div class="ibox">
+                    <div class="ibox-body">
+                        <div class="table-responsive">
+            <table border="1" width="100%" class="table">
 
                 <thead>
                     <tr>
@@ -36,7 +41,7 @@
                         <th>Action</th> 
                     </tr>
                 </thead>
-
+          
                 <tbody>
                     <c:forEach items="${list}" var="cli" varStatus="statut">
                         <tr>
@@ -46,6 +51,7 @@
                             <td>${cli.emailClient}</td>
                             <td>${cli.telClient}</td>
                             <td>${cli.villeClient}</td>
+
                             <td>
                                 <a href="${pageContext.request.contextPath}/ClientServlet?ids=${cli.idClient}">Supprimer</a>
                                 <a href="${pageContext.request.contextPath}/ClientServlet?idm=${cli.idClient}">Modifier</a>
@@ -55,7 +61,10 @@
                     </c:forEach>
                 </tbody>
             
-            </table>  
+            </table> 
+                        </div>
+                    </div>
+            </div>
         </fieldset> 
         <button><a href="${pageContext.request.contextPath}/vue/client.jsp">Ajouter</a></button>
         <%@ include file="foot.jsp" %>

@@ -15,12 +15,12 @@
     <body>
         <%@ include file="head.jsp" %>
         <fieldset>
-            <legend>Formulaire Des Ventes</legend>
+            <legend>Les Ventes</legend>
         
                 <form action="${pageContext.request.contextPath}/VenteServlet" method="post">
                     
                     <div>
-                        <label>Date: </label>
+                        <label>Date Vente: </label>
                         <input type="text" name="dateVente" value="${vente.dateVente}" size="30"/>
                     </div>
 
@@ -28,22 +28,37 @@
                         <label>Total: </label>
                         <input type="number" name="totalVente" value="${vente.totalVente}" size="30"/>
                     </div>
-
+                    
                     <div>
                         <label>Commande: </label>
-                        <input type="text" name="idCommande" value="${vente.idCommande}" size="30"/>
-                    </div>
+                        <select name="idCommande">
+                            <option>Choisir</option>
+                            <c:forEach var="commande" items="${commandes}">
+                                <option value="${commande.idCommande}">${commande.dateCommande}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
                     
                     <div>
-                        <label>Menu </label>
-                        <input type="text" name="idMenu" value="${vente.idMenu}" size="30"/>
-                    </div>
-                    
+                        <label>Menu: </label>
+                        <select name="idMenu">
+                            <option>Choisir</option>
+                            <c:forEach var="menu" items="${menus}">
+                                <option value="${menu.idMenu}">${menu.nomMenu}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+
                     <div>
                         <label>Client: </label>
-                        <input type="text" name="idClient" value="${vente.idClient}" size="30"/>
-                    </div>
-
+                        <select name="idClient">
+                            <option>Choisir</option>
+                            <c:forEach var="client" items="${clients}">
+                                <option value="${client.idClient}">${client.nomClient}</option>
+                            </c:forEach>
+                        </select>
+                    </div> 
+                    
                     <div>
                         <label>&nbsp;</label>
                         <c:if test="${vente==null}">

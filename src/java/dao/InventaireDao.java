@@ -65,6 +65,7 @@ public class InventaireDao extends Dao<Inventaire>{
         session.close();
     }
 
+
     @Override
     public List<Inventaire> liste() {
         //liste
@@ -75,4 +76,26 @@ public class InventaireDao extends Dao<Inventaire>{
         return listinv;
     }
     
+        /*public Inventaire getIngredientById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from nomInvent where idInvent=:id");
+        query.setParameter("id", id);
+        Inventaire ingredient = (Inventaire) query.uniqueResult();
+        transaction.commit();
+        session.close();
+        return ingredient;
+        }*/
+        
+        public String getIngredientNameById(int id) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Transaction transaction = session.beginTransaction();
+    Query query = session.createQuery("select nomInvent from Inventaire where idInvent=:id");
+    query.setParameter("id", id);
+    String ingredientName = (String) query.uniqueResult();
+    transaction.commit();
+    session.close();
+    return ingredientName;
+}
+
 }
